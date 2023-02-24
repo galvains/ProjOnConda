@@ -1592,11 +1592,29 @@ async def main():
     await asyncio.gather(a, b, c)
 
 asyncio.run(main())
+
+import re
+import sys
+
+pattern = r'\b([aA]+)\b'
+
+for line in sys.stdin:
+    line = line.rstrip()
+    # if re.search(pattern, line):
+    #     print(line)
+
+    print(re.sub(pattern, 'argh', line, 1, re.IGNORECASE))
+
 '''
 import re
+import sys
 
-pattern = r'abc'
-string = 'abc'
-m_o = re.match(pattern, string)
-print(m_o)
-print(re.match(pattern, string))
+pattern = r'\A[01]+\Z'
+
+for line in sys.stdin:
+    line = line.rstrip()
+    if re.match(pattern, line) and int(line, 2) % 3 == 0:
+        print(line)
+
+
+print(int('10010', 2))
