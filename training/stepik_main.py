@@ -1605,7 +1605,7 @@ for line in sys.stdin:
 
     print(re.sub(pattern, 'argh', line, 1, re.IGNORECASE))
 
-'''
+
 import re
 import sys
 
@@ -1618,3 +1618,25 @@ for line in sys.stdin:
 
 
 print(int('10010', 2))
+
+import requests
+from bs4 import BeautifulSoup
+
+a, b = input(), input()
+response = requests.get(a)
+soup = BeautifulSoup(response.text, 'lxml')
+
+urls = soup.find_all('a')
+
+for url in urls:
+    print(url.text)
+
+    print(b)
+'''
+a, b = input(), input()
+if abs(int(a.split('/')[-1][6]) - int(b.split('/')[-1][6])) == 2:
+    print('Yes')
+else:
+    print('No')
+
+
