@@ -21,7 +21,7 @@ while tasks:
     except StopIteration:
         pass
 _______________________________
-'''
+
 import socket
 from select import select
 
@@ -82,3 +82,44 @@ def event_loop():
 
 tasks.append(server())
 event_loop()
+'''
+
+def coroutine(func):
+    def inner(*args, **kwargs):
+        g = func(*args, **kwargs)
+        g.send(None)
+        return g
+    return inner
+
+# @coroutine
+# def average():
+#     count, total, average = 0, 0, None
+#
+#     while True:
+#         try:
+#             x = yield average
+#         except StopIteration:
+#             print('Done!')
+#             break
+#         else:
+#             count += 1
+#             total += x
+#             average = round(total / count, 2)
+#
+#     return average
+
+def subgen():
+    while True:
+        try:
+            message = yield
+        except StopIteration:
+            print('exStopIt')
+            break
+        else:
+            print('...', message)
+    return 'returned from subgen()'
+
+@coroutine
+def delegator(g):
+    result = yield from g
+    print(result)
