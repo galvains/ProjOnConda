@@ -41,10 +41,10 @@ async def main2():
             tasks.append(task)
         await asyncio.gather(*tasks)
 
-
 if __name__ == '__main__':
     start = time()
     asyncio.run(main2())
     print(time() - start)
+
 
 
